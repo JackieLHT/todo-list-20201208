@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
-import ToDoItem from './ToDoItem'
+import ToDoItemContainer from '../containers/ToDoItemContainer'
+import { v4 as uuidv4 } from 'uuid'
 
 class ToDoGroup extends Component {
 
     render() {
         return (
-            this.props.toDoList.map(toDoItem => { 
-                return <ToDoItem id={toDoItem.id} key={toDoItem.id} text={ToDoItem.text} done={toDoItem.done} />
+            this.props.toDoList.map(toDoItem => {
+                return <ToDoItemContainer key={uuidv4()} id={toDoItem.id} text={toDoItem.text} done={toDoItem.done} />
             })
         );
     }

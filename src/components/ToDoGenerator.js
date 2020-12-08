@@ -1,22 +1,30 @@
 import React, { Component } from 'react';
-import {v4 as uuidv4} from 'uuid'
+import { v4 as uuidv4 } from 'uuid'
 
 class ToDoGenerator extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
-        
+
+        this.state = {
+            text: ""
+        }
+
     }
 
-    addToDoItem = (event)=>{
-        let toDoItem= {id:uuidv4(), text: document.getElementById("text").value, done:false}
+    addToDoItem = (event) => {
+        let toDoItem = { id: uuidv4(), text: this.state.text, done: false }
         this.props.addToDo(toDoItem);
+    }
+
+    onChange = (event) => {
+        this.setState({ text: event.target.value })
     }
 
     render() {
         return (
             <div>
-                <input id="text" type="text" placeholder="Input some text here" onChange />
-                <input type="button" value="add" onClick={this.addToDoItem}/>
+                <input id="text" type="text" value={this.state.text} onChange={this.onChange} />
+                <input type="button" value="add" onClick={this.addToDoItem} />
             </div>
         );
     }
