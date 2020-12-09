@@ -3,7 +3,7 @@ import ToDoGroup from '../components/ToDoGroup';
 import { initTodo } from '../actions'
 
 const mapStateToProps = state => ({
-    toDoList: state.ToDos
+    toDoList: state.ToDos.filter(todo=> !todo.done)
 })
 const mapDispatchToProps = dispatch => ({
     initTodo: (toDoList) => dispatch(initTodo(toDoList))

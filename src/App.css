@@ -39,3 +39,7 @@
 .abc{
   text-decoration: none;
 }
+
+.todoItem span{
+  text-decoration: line-through;
+}

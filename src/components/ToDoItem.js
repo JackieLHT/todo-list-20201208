@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { deleteTodo, updateTodoStatus, addTodoTags } from '../apis/todos';
-import ContextMenu from 'react-context-menu';
-import { Tag, Input, Tooltip, Button } from 'antd';
-import { PlusOutlined } from '@ant-design/icons';
-import TagGeneratorContainer from '../containers/TagGeneratorContainer';
+import { deleteTodo, updateTodoStatus } from '../apis/todos';
+import { Button } from 'antd';
+import EditableTagGroupContainer from '../containers/EditableTagGroupContainer'
+import '../ToDoItem.css'
 
 
 class ToDoItem extends Component {
@@ -12,8 +11,8 @@ class ToDoItem extends Component {
 
         this.state = {
             done: this.props.toDoItem.done,
-            showTagGenerator: false,
-            tagText: ''
+            tagText: '',
+            tags: this.props.toDoItem.tags
         }
     }
     toggleStatus = () => {
@@ -28,34 +27,16 @@ class ToDoItem extends Component {
 
     }
 
-    addTag = () => {
-        this.setState({ showTagGenerator: !this.state.showTagGenerator });
-    }
-
-    onChange = (event) => {
-        this.setState({ tagText: event.target.value })
-    }
-
-    confirmTag = () => {
-        const newTodoItem = { ...this.props.toDoItem, tags: [...this.props.toDoItem.tags, this.state.tagText] }
-        addTodoTags(newTodoItem).then((response) => {
-            this.props.addTag(newTodoItem)
-        })
-
-    }
-
     render() {
         const todoId = this.props.toDoItem.id
-        const showTagGenerator = this.state.showTagGenerator
         return (
             <div>
-                <Button type='primary' ghost
+                <EditableTagGroupContainer toDoItem={this.props.toDoItem} />
+                <Button className="todoItem" type='primary' ghost
                     style={{
-                        width: 600,
-                        height: 30,
-                        textAlign: 'left',
-                        textDecoration: this.props.toDoItem.done ? 'line-through' : 'none'
+                        textDecoration: this.props.toDoItem.done ? 'line-through' : 'none',
                     }}
+                    shape='round'
                     key={todoId}
                     id={todoId}
                     onClick={this.toggleStatus}
@@ -68,28 +49,7 @@ class ToDoItem extends Component {
                         marginLeft: -30,
                         backgroundColor: "transparent",
                         border: "none"
-
-                    }}>X</Button>
-                <Button
-                    onClick={this.addTag} F
-                    danger
-                    ghost
-                    style={{
-                        width: 30,
-                        backgroundColor: 'transparent',
-                        color: 'red',
-                        textAlign: 'center'
-                    }}>+</Button>
-                {showTagGenerator ? <Input style={{ width: 200 }} onChange={this.onChange} /> : null}
-                {showTagGenerator ? <Button type='primary' ghost style={{ width: 100, color: 'green', border: 1, borderColor: 'green' }} onClick={this.confirmTag}>confirm</Button> : null}
-                <ContextMenu
-                    contextId={todoId}
-                    items={[
-                        {
-                            label: 'Add Tag',
-                            onClick: this.addTag
-                        }
-                    ]} />
+                    }}>x</Button>
             </div>
         );
     }

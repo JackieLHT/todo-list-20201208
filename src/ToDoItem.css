@@ -1,0 +1,12 @@
+.todoItem {
+    width: 50vh;
+    height: 3vh;
+    text-align: 'left';
+}
+.todoItem span{
+    text-decoration: line-through;
+  }
+
+.todoList {
+    background-color: #282c34;
+}

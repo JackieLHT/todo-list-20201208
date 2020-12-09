@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux'
-import { ADD_TODO_ITEM, DELETE_TODO_ITEM, UPDATE_TODO_ITEM, INIT_TODO, ADD_TAG } from './actionTypes'
+import { ADD_TODO_ITEM, DELETE_TODO_ITEM, UPDATE_TODO_ITEM, INIT_TODO, UPDATE_TAG } from './actionTypes'
 
 
 const ToDos = (state = [], action) => {
@@ -29,7 +29,7 @@ const ToDos = (state = [], action) => {
 
     }
 
-    if (action.type === ADD_TAG) {
+    if (action.type === UPDATE_TAG) {
         return state.map(todoItem => {
             if (todoItem.id === action.payload.id)
                 return { ...todoItem, tags: action.payload.tags }
