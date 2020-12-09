@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { deleteTodo, updateTodo } from '../apis/todos';
+
 
 class ToDoItem extends Component {
     constructor(props) {
@@ -9,11 +11,15 @@ class ToDoItem extends Component {
         }
     }
     toggleStatus = () => {
-        this.props.updateToDo(this.props.toDoItem.id);
+        updateTodo(this.props.toDoItem).then((response) => {
+            this.props.updateToDo(response.data.id);
+        })
     }
+    deleteItem = () => {
+        deleteTodo(this.props.toDoItem.id).then(() => {
+            this.props.deleteToDo(this.props.toDoItem.id);
+        })
 
-    delete = () => {
-        this.props.deleteToDo(this.props.toDoItem.id);
     }
     render() {
         return (

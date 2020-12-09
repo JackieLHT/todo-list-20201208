@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { v4 as uuidv4 } from 'uuid'
+import { addNewTodo } from '../apis/todos';
 
 class ToDoGenerator extends Component {
     constructor(props) {
@@ -12,8 +12,16 @@ class ToDoGenerator extends Component {
     }
 
     addToDoItem = (event) => {
-        let toDoItem = { id: uuidv4(), text: this.state.text, done: false }
-        this.props.addToDo(toDoItem);
+        let toDoItem = { text: this.state.text, done: false }
+        addNewTodo(toDoItem).then((response) => {
+            this.props.addToDo(response.data);
+        })
+    }
+
+    handleKeyDown = (event) => {
+        if (event.key === "Enter") {
+            this.addToDoItem();
+        }
     }
 
     onChange = (event) => {
