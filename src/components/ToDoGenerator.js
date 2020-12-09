@@ -23,7 +23,7 @@ class ToDoGenerator extends Component {
     render() {
         return (
             <div>
-                <input id="text" type="text" value={this.state.text} onChange={this.onChange} />
+                <input id="text" type="text" placeholder="Add some todos here" value={this.state.text} onChange={this.onChange} style={{width:500}}/>
                 <input type="button" value="add" onClick={this.addToDoItem} />
             </div>
         );

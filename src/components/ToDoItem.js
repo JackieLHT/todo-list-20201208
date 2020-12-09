@@ -1,20 +1,19 @@
 import React, { Component } from 'react';
-import { v4 as uuidv4 } from 'uuid'
 
 class ToDoItem extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            done: this.props.done
+            done: this.props.toDoItem.done
         }
     }
     toggleStatus = () => {
-        this.setState({ done: !this.state.done });
+        this.props.updateToDo(this.props.toDoItem.id);
     }
 
     delete = () => {
-        this.props.deleteToDo(this.props.id)
+        this.props.deleteToDo(this.props.toDoItem.id);
     }
     render() {
         return (
@@ -22,13 +21,14 @@ class ToDoItem extends Component {
                 <input
                     style={{
                         width: 600,
+                        height: 30,
                         textAlign: 'left',
-                        textDecoration: this.state.done ? 'line-through' : 'none',
+                        textDecoration: this.props.toDoItem.done ? 'line-through' : 'none',
                     }}
                     type="button"
-                    key={this.props.id}
+                    key={this.props.toDoItem.id}
                     onClick={this.toggleStatus}
-                    value={this.props.text} />
+                    value={this.props.toDoItem.text} />
                 <input
                     type="button"
                     value="x"

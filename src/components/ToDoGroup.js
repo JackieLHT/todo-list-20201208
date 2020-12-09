@@ -7,7 +7,7 @@ class ToDoGroup extends Component {
     render() {
         return (
             this.props.toDoList.map(toDoItem => {
-                return <ToDoItemContainer key={uuidv4()} id={toDoItem.id} text={toDoItem.text} done={toDoItem.done} />
+                return <ToDoItemContainer key={uuidv4()} toDoItem={toDoItem} />
             })
         );
     }
