@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
 import { deleteTodo, updateTodo } from '../apis/todos';
+import ContextMenu from 'react-context-menu';
+import { Tag, Input, Tooltip, Button } from 'antd';
+import { PlusOutlined } from '@ant-design/icons';
+import TagGenerator from './TagGenerator';
 
 
 class ToDoItem extends Component {
@@ -7,7 +11,8 @@ class ToDoItem extends Component {
         super(props);
 
         this.state = {
-            done: this.props.toDoItem.done
+            done: this.props.toDoItem.done,
+            showTagGenerator: false
         }
     }
     toggleStatus = () => {
@@ -15,29 +20,37 @@ class ToDoItem extends Component {
             this.props.updateToDo(response.data.id);
         })
     }
-    deleteItem = () => {
+    delete = () => {
+        console.log("delete")
         deleteTodo(this.props.toDoItem.id).then(() => {
             this.props.deleteToDo(this.props.toDoItem.id);
         })
 
     }
+
+    addTag = () => {
+        this.setState({ showTagGenerator: true });
+    }
+
     render() {
+        const todoId = this.props.toDoItem.id
+        const showTagGenerator = this.state.showTagGenerator
         return (
             <div>
-                <input
+                {showTagGenerator ? <TagGenerator /> : null}
+                <Button type='primary' ghost
                     style={{
                         width: 600,
                         height: 30,
                         textAlign: 'left',
-                        textDecoration: this.props.toDoItem.done ? 'line-through' : 'none',
+                        textDecoration: this.props.toDoItem.done ? 'line-through' : 'none'
                     }}
-                    type="button"
-                    key={this.props.toDoItem.id}
+                    key={todoId}
+                    id={todoId}
                     onClick={this.toggleStatus}
-                    value={this.props.toDoItem.text} />
-                <input
-                    type="button"
-                    value="x"
+                >{this.props.toDoItem.text}</Button>
+
+                <Button
                     onClick={this.delete}
                     style={{
                         width: 30,
@@ -45,7 +58,15 @@ class ToDoItem extends Component {
                         backgroundColor: "transparent",
                         border: "none"
 
-                    }} />
+                    }}>X</Button>
+                <ContextMenu
+                    contextId={todoId}
+                    items={[
+                        {
+                            label: 'Add Tag',
+                            onClick: this.addTag
+                        }
+                    ]} />
             </div>
         );
     }

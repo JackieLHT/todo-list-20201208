@@ -12,7 +12,7 @@ class ToDoGenerator extends Component {
     }
 
     addToDoItem = (event) => {
-        let toDoItem = { text: this.state.text, done: false }
+        let toDoItem = { text: this.state.text, done: false , tags: []}
         addNewTodo(toDoItem).then((response) => {
             this.props.addToDo(response.data);
         })
