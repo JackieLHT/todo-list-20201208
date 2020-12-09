@@ -1,0 +1,18 @@
+.todoItem {
+    width: 50vh;
+    height: 3vh;
+}
+/* .todoItem span{
+    text-decoration: line-through;
+  } */
+
+.todoList {
+    background-color: #282c34;
+}
+
+.delete-btn {
+    width: 4vh;
+    margin-left: -4vh;
+    background-color: transparent;
+    border: none
+}

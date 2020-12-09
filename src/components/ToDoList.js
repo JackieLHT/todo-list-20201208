@@ -5,7 +5,7 @@ class ToDoList extends Component {
     render() {
         return (
             <div>
-                <div>TODO LIST</div>
+                <h1>TODO LIST</h1>
                 <ToDoGroupContainer />
                 <ToDoGeneratorContainer/>
             </div>

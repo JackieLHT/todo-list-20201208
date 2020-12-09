@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { deleteTodo, updateTodoStatus } from '../apis/todos';
 import { Button } from 'antd';
 import EditableTagGroupContainer from '../containers/EditableTagGroupContainer'
-import '../ToDoItem.css'
+import '../TodoList.css'
 
 
 class ToDoItem extends Component {
@@ -11,7 +11,6 @@ class ToDoItem extends Component {
 
         this.state = {
             done: this.props.toDoItem.done,
-            tagText: '',
             tags: this.props.toDoItem.tags
         }
     }
@@ -41,15 +40,8 @@ class ToDoItem extends Component {
                     id={todoId}
                     onClick={this.toggleStatus}
                 >{this.props.toDoItem.text}</Button>
-
-                <Button
-                    onClick={this.delete}
-                    style={{
-                        width: 30,
-                        marginLeft: -30,
-                        backgroundColor: "transparent",
-                        border: "none"
-                    }}>x</Button>
+                <Button className="delete-btn"
+                    onClick={this.delete}>x</Button>
             </div>
         );
     }

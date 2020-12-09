@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Tag, Input, Tooltip } from 'antd';
+import { Tag, Input } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import { updateTodoTags } from '../apis/todos';
 
@@ -33,13 +33,7 @@ class EditableTagGroup extends Component {
         updateTodoTags(newTodoItem).then((response) => {
             this.props.updateTag(newTodoItem)
         })
-        const { inputValue } = this.state;
-        let { tags } = this.state;
-        if (inputValue && tags.indexOf(inputValue) === -1) {
-            tags = [...tags, inputValue];
-        }
         this.setState({
-            tags,
             inputVisible: false,
             inputValue: '',
         });
@@ -56,11 +50,9 @@ class EditableTagGroup extends Component {
         updateTodoTags(newTodoItem).then((response) => {
             this.props.updateTag(newTodoItem)
         })
-        this.setState(({ tags, editInputIndex, editInputValue }) => {
-            return {
+        this.setState( {
                 editInputIndex: -1,
                 editInputValue: '',
-            };
         });
     };
 
@@ -97,7 +89,7 @@ class EditableTagGroup extends Component {
                         <Tag
                             className="edit-tag"
                             key={tag}
-                            closable={index !== 0}
+                            closable='true'
                             onClose={() => this.handleClose(tag)}
                         >
                             <span
