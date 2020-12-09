@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { addNewTodo } from '../apis/todos';
+import { Button } from 'antd';
 
 class ToDoGenerator extends Component {
     constructor(props) {
@@ -12,7 +13,7 @@ class ToDoGenerator extends Component {
     }
 
     addToDoItem = (event) => {
-        let toDoItem = { text: this.state.text, done: false , tags: []}
+        let toDoItem = { text: this.state.text, done: false, tags: [] }
         addNewTodo(toDoItem).then((response) => {
             this.props.addToDo(response.data);
         })
@@ -31,8 +32,8 @@ class ToDoGenerator extends Component {
     render() {
         return (
             <div>
-                <input id="text" type="text" placeholder="Add some todos here" value={this.state.text} onChange={this.onChange} style={{width:500}}/>
-                <input type="button" value="add" onClick={this.addToDoItem} />
+                <input id="text" type="text" placeholder="Add some todos here" value={this.state.text} onChange={this.onChange} style={{ width: 500 }} />
+                <Button onClick={this.addToDoItem}>add</Button>
             </div>
         );
     }

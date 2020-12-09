@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { deleteTodo, updateTodo } from '../apis/todos';
+import { deleteTodo, updateTodoStatus, addTodoTags } from '../apis/todos';
 import ContextMenu from 'react-context-menu';
 import { Tag, Input, Tooltip, Button } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
-import TagGenerator from './TagGenerator';
+import TagGeneratorContainer from '../containers/TagGeneratorContainer';
 
 
 class ToDoItem extends Component {
@@ -12,16 +12,16 @@ class ToDoItem extends Component {
 
         this.state = {
             done: this.props.toDoItem.done,
-            showTagGenerator: false
+            showTagGenerator: false,
+            tagText: ''
         }
     }
     toggleStatus = () => {
-        updateTodo(this.props.toDoItem).then((response) => {
+        updateTodoStatus(this.props.toDoItem).then((response) => {
             this.props.updateToDo(response.data.id);
         })
     }
     delete = () => {
-        console.log("delete")
         deleteTodo(this.props.toDoItem.id).then(() => {
             this.props.deleteToDo(this.props.toDoItem.id);
         })
@@ -29,7 +29,19 @@ class ToDoItem extends Component {
     }
 
     addTag = () => {
-        this.setState({ showTagGenerator: true });
+        this.setState({ showTagGenerator: !this.state.showTagGenerator });
+    }
+
+    onChange = (event) => {
+        this.setState({ tagText: event.target.value })
+    }
+
+    confirmTag = () => {
+        const newTodoItem = { ...this.props.toDoItem, tags: [...this.props.toDoItem.tags, this.state.tagText] }
+        addTodoTags(newTodoItem).then((response) => {
+            this.props.addTag(newTodoItem)
+        })
+
     }
 
     render() {
@@ -37,7 +49,6 @@ class ToDoItem extends Component {
         const showTagGenerator = this.state.showTagGenerator
         return (
             <div>
-                {showTagGenerator ? <TagGenerator /> : null}
                 <Button type='primary' ghost
                     style={{
                         width: 600,
@@ -59,6 +70,18 @@ class ToDoItem extends Component {
                         border: "none"
 
                     }}>X</Button>
+                <Button
+                    onClick={this.addTag} F
+                    danger
+                    ghost
+                    style={{
+                        width: 30,
+                        backgroundColor: 'transparent',
+                        color: 'red',
+                        textAlign: 'center'
+                    }}>+</Button>
+                {showTagGenerator ? <Input style={{ width: 200 }} onChange={this.onChange} /> : null}
+                {showTagGenerator ? <Button type='primary' ghost style={{ width: 100, color: 'green', border: 1, borderColor: 'green' }} onClick={this.confirmTag}>confirm</Button> : null}
                 <ContextMenu
                     contextId={todoId}
                     items={[

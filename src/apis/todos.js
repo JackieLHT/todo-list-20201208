@@ -13,6 +13,10 @@ export const deleteTodo = (todoItemId) => {
     return api.delete('/todos/' + todoItemId)
 }
 
-export const updateTodo = (todoItem) => {
+export const updateTodoStatus = (todoItem) => {
     return api.put('/todos/' + todoItem.id, { ...todoItem, done: !todoItem.done });
+}
+
+export const addTodoTags = (newTodoItem) => {
+    return api.put('/todos/' + newTodoItem.id, newTodoItem)
 }
