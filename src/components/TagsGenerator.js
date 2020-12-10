@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Input } from 'antd';
 import { addTags } from '../apis/todos'
+import '../tags.css'
 
 class TagsGenerator extends Component {
     constructor(props) {
@@ -10,7 +11,7 @@ class TagsGenerator extends Component {
             tag: {
                 text: '',
                 color: ''
-            }
+            },
         }
     }
 
@@ -27,7 +28,7 @@ class TagsGenerator extends Component {
 
     render() {
         return (
-            <div>
+            <div className="tagGenerator">
                 <Input type="text" placeholder="Add some tags here" onChange={this.onChange} style={{ width: 500 }} />
                 <Button onClick={this.addTag}>Add Tag</Button>
             </div>

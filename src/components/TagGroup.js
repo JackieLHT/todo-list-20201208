@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { getTags } from '../apis/todos'
-import api from '../apis/api';
+import '../tags.css'
 
 class TagGroup extends Component {
     componentDidMount() {
@@ -11,13 +11,11 @@ class TagGroup extends Component {
 
     render() {
         return (
-            <ul>
-                {
-                    this.props.tags.map((tag) => {
-                        return <li>{tag.text}</li>
-                    })
-                }
-            </ul>
+
+            this.props.tags.map((tag) => {
+                return <div className="tagListItem" style={{ backgroundColor: tag.color }}>{tag.text}</div>
+            })
+
         );
     }
 }

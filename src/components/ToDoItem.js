@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { deleteTodo, updateTodoStatus } from '../apis/todos';
-import { Button } from 'antd';
-import EditableTagGroupContainer from '../containers/EditableTagGroupContainer'
+import { Button, Modal } from 'antd';
+import EditableTagGroupContainer from '../containers/EditableTagGroupContainer';
+import {getTags} from '../apis/todos';
 import '../TodoList.css'
+import '../tags.css'
 
 
 class ToDoItem extends Component {
@@ -11,9 +13,18 @@ class ToDoItem extends Component {
 
         this.state = {
             done: this.props.toDoItem.done,
-            tags: this.props.toDoItem.tags
+            tags: this.props.toDoItem.tags,
+            newTags: [],
+            showModal: false
         }
     }
+
+    componentDidMount() {
+        getTags().then((response) => {
+            this.props.initTag(response.data);
+        })
+    }
+
     toggleStatus = () => {
         updateTodoStatus(this.props.toDoItem).then((response) => {
             this.props.updateToDo(response.data.id);
@@ -26,11 +37,37 @@ class ToDoItem extends Component {
 
     }
 
+    showModal = () => {
+        this.setState({ showModal: true });
+    };
+
+    handleOk = () => {
+        this.setState({ showModal: false });
+    };
+
+    handleCancel = () => {
+        this.setState({ showModal: false });
+    };
+
+    selectTag = (event) => {
+    
+    }
+
     render() {
         const todoId = this.props.toDoItem.id
         return (
 
-            <div className="todoItemGroup">
+            <div id={todoId} className="todoItemGroup">
+                <Button className="addTag-btn"
+                    onClick={this.showModal}>+</Button>
+                <Modal
+                    title="Select Tags To Be Added"
+                    visible={this.state.showModal}
+                    onOk={this.handleOk}
+                    onCancel={this.handleCancel}
+                >
+                {this.props.tags.map(tag => <div className="tagListItem" onClick={this.selectTag} style={{ backgroundColor: tag.color }}>{tag.text}</div>)}
+                </Modal>
                 <div
                     className="todoItem"
                     style={{
@@ -39,7 +76,7 @@ class ToDoItem extends Component {
                     key={todoId}
                     id={todoId}
                     onClick={this.toggleStatus} >{this.props.toDoItem.text}</div>
-                <EditableTagGroupContainer toDoItem={this.props.toDoItem} />
+                {/* <EditableTagGroupContainer toDoItem={this.props.toDoItem} /> */}
                 <Button className="delete-btn"
                     onClick={this.delete}>x</Button>
             </div>

@@ -1,0 +1,31 @@
+.generator {
+    display: flex;
+}
+
+.popover {
+    position: absolute;
+    z-index: 2;
+}
+
+.cover {
+    position: fixed;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+}
+
+.tagListItem {
+    border: 2px solid black;
+    border-radius: 25px;
+    display: inline-flex;
+    padding-left: 1em;
+    padding-right: 1em;
+    margin-left: 1em;
+    margin-right: 1em;
+    cursor: pointer;
+}
+
+.tagGenerator {
+    padding-bottom: 5vh;
+}
