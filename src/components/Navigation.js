@@ -6,11 +6,14 @@ class Navigation extends Component {
     render() {
         return (
             <Menu mode="horizontal">
-                <Menu.Item key="mail">
-                    <Link to="/">go to list</Link>
+                <Menu.Item key="todo">
+                    <Link to="/">Todo List</Link>
                 </Menu.Item>
-                <Menu.Item key="app" >
-                    <Link to="/done">go to done list</Link>
+                <Menu.Item key="done" >
+                    <Link to="/done">Done List</Link>
+                </Menu.Item>
+                <Menu.Item key="tags">
+                    <Link to="/tags">Edit Tags</Link>
                 </Menu.Item>
             </Menu>
         );

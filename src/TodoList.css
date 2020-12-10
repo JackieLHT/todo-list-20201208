@@ -1,7 +1,14 @@
-.todoItem {
-    width: 50vh;
-    height: 3vh;
+.todoItemGroup {
+    border: 2px solid black;
+    display: inline-flex;
+    border-radius: 25px;
 }
+
+.todoItem {
+    width: 30vh;
+    cursor: pointer
+}
+
 /* .todoItem span{
     text-decoration: line-through;
   } */
@@ -11,8 +18,6 @@
 }
 
 .delete-btn {
-    width: 4vh;
-    margin-left: -4vh;
-    background-color: transparent;
-    border: none
+    background-color: pink;
+    border-radius: 25px;
 }

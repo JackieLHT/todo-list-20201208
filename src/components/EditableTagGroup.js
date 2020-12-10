@@ -9,7 +9,9 @@ class EditableTagGroup extends Component {
         inputVisible: false,
         inputValue: '',
         editInputIndex: -1,
-        editInputValue: ''
+        editInputValue: '',
+        colors: ['magenta', 'red', 'volcano', 'orange', 'gold', 'lime', 'green', 'cyan', 'blue', 'geekblue', 'purple'],
+        color: ''
     };
 
     handleClose = removedTag => {
@@ -30,7 +32,7 @@ class EditableTagGroup extends Component {
 
     handleInputConfirm = () => {
         const newTodoItem = { ...this.props.toDoItem, tags: [...this.props.toDoItem.tags, this.state.inputValue] }
-        updateTodoTags(newTodoItem).then((response) => {
+        updateTodoTags(newTodoItem).then(() => {
             this.props.updateTag(newTodoItem)
         })
         this.setState({
@@ -47,12 +49,12 @@ class EditableTagGroup extends Component {
         const newTags = [...this.state.tags];
         newTags[this.state.editInputIndex] = this.state.editInputValue;
         const newTodoItem = { ...this.props.toDoItem, tags: newTags }
-        updateTodoTags(newTodoItem).then((response) => {
+        updateTodoTags(newTodoItem).then(() => {
             this.props.updateTag(newTodoItem)
         })
-        this.setState( {
-                editInputIndex: -1,
-                editInputValue: '',
+        this.setState({
+            editInputIndex: -1,
+            editInputValue: '',
         });
     };
 
@@ -66,9 +68,8 @@ class EditableTagGroup extends Component {
 
     render() {
         const { tags, inputVisible, inputValue, editInputIndex, editInputValue } = this.state;
-        console.log(this.state.tags)
         return (
-            <>
+            <span>
                 {tags.map((tag, index) => {
                     if (editInputIndex === index) {
                         return (
@@ -91,6 +92,7 @@ class EditableTagGroup extends Component {
                             key={tag}
                             closable='true'
                             onClose={() => this.handleClose(tag)}
+                            color={this.state.colors[index % this.state.colors.length]}
                         >
                             <span
                                 onDoubleClick={e => {
@@ -125,7 +127,7 @@ class EditableTagGroup extends Component {
                         <PlusOutlined /> New Tag
                     </Tag>
                 )}
-            </>
+            </span>
         );
     }
 }

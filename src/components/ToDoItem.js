@@ -29,17 +29,17 @@ class ToDoItem extends Component {
     render() {
         const todoId = this.props.toDoItem.id
         return (
-            <div>
-                <EditableTagGroupContainer toDoItem={this.props.toDoItem} />
-                <Button className="todoItem" type='primary' ghost
+
+            <div className="todoItemGroup">
+                <div
+                    className="todoItem"
                     style={{
                         textDecoration: this.props.toDoItem.done ? 'line-through' : 'none',
                     }}
-                    shape='round'
                     key={todoId}
                     id={todoId}
-                    onClick={this.toggleStatus}
-                >{this.props.toDoItem.text}</Button>
+                    onClick={this.toggleStatus} >{this.props.toDoItem.text}</div>
+                <EditableTagGroupContainer toDoItem={this.props.toDoItem} />
                 <Button className="delete-btn"
                     onClick={this.delete}>x</Button>
             </div>
